@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS Ativos (
+CREATE TABLE IF NOT EXISTS ativos (
     id SERIAL PRIMARY KEY,
     ticker VARCHAR(255) NOT NULL,
     company_name TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Ativos_Prices (
+CREATE TABLE IF NOT EXISTS ativos_prices (
     id SERIAL PRIMARY KEY,
     ativo_id INTEGER NOT NULL,
     price NUMERIC NOT NULL,

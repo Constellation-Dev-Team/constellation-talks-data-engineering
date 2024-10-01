@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 #ignore any .txt and .zip files
-*.txt
+*/scripts/*.txt
 *.zip

@@ -5,4 +5,4 @@ class Ativos(SQLModel, table=True):
     ticker: str
     company_name: str
 
-    __tablename__ = "Ativos"
+    __tablename__ = "ativos"
