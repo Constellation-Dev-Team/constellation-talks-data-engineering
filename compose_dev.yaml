@@ -1,0 +1,50 @@
+services:
+  frontend:
+    container_name: frontend_data_engineering
+    build:
+      context: ./frontend
+      target: dev
+    restart: always
+    env_file: 
+      - .env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend_data_engineering
+    build: ./backend
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/code
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: db_data_engineering
+    image: postgres:13
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
